@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>手风琴</title>
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      body {
+        box-sizing: border-box;
+        height: 100vh;
+        padding: 0;
+        display: flex;
+        font-family: sans-serif;
+        background: #000000;
+      }
+      .container {
+        display: flex;
+        flex: 1;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+      .panel {
+        height: 80vh;
+        margin: 10px;
+        flex: 0.5;
+        position: relative; /*相对定位，使得子元素可以绝对定位*/
+        background-size: cover;
+        /*保留固有比例，最大的包含或覆盖背景区。如果图像没有固有比例，则按背景区大小。*/
+        background-position: center;
+        background-repeat: no-repeat;
+        /* background-color: aqua; */
+        transition: flex 0.7s ease-out;
+        /* transition: <property> <duration> <timing-function> <delay>;*/
+        border-radius: 50px;
+      }
+      .panel h3 {
+        margin: 10px;
+        color: #ffffff;
+        font-size: 40px;
+      }
+      .panel.active {
+        flex: 5;
+      }
+      @media (max-width: 600px) {
+        /*当屏幕宽度小于480px时*/
+        .container {
+          width: 100%;
+        }
+        .panel:nth-of-type(4),
+        .panel:nth-of-type(5) {
+          display: none; /*隐藏第四个和第五个*/
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container active">
+      <div
+        class="panel active"
+        style="background-image: url(../src/assets/img/1.JPG)"
+      >
+        <h3>zono</h3>
+      </div>
+      <div class="panel" style="background-image: url(../src/assets/img/2.JPG)">
+        <h3>zono</h3>
+      </div>
+      <div class="panel" style="background-image: url(../src/assets/img/3.JPG)">
+        <h3>zono</h3>
+      </div>
+      <div class="panel" style="background-image: url(../src/assets/img/4.JPG)">
+        <h3>zono</h3>
+      </div>
+      <div class="panel" style="background-image: url(../src/assets/img/5.JPG)">
+        <h3>zono</h3>
+      </div>
+    </div>
+  </body>
+  <script>
+    window.onload = function () {
+      //页面加载完毕后执行
+      const panels = document.querySelectorAll(".panel"); //获取所有的panel
+      panels.forEach((panel) => {
+        //遍历所有的panel
+        panel.addEventListener("mouseenter", () => {
+          removeActiveClasses(); //移除所有的active类
+          panel.classList.add("active"); //为当前点击的panel添加active类
+        }); //为每个panel添加点击事件
+      });
+      function removeActiveClasses() {
+        panels.forEach((panel) => {
+          panel.classList.remove("active");
+        });
+      }
+    };
+  </script>
+</html>

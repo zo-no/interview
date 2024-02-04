@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <!-- 简单写一个todolist -->
+    <ul id="todo">
+      <h2>todolist</h2>
+      <li value="1">1</li>
+      <li value="2">2</li>
+      <li value="3">3</li>
+    </ul>
+    <input type="text" id="todod" />
+    <input type="submit" id="input" value="提交" />
+    <ul id="did">
+      <h2>已完成</h2>
+      <li>1</li>
+      <li>2</li>
+      <li>3</li>
+    </ul>
+  </body>
+  <script>
+    /*
+     获取元素总结
+     单个节点
+     querySelector
+     getElementById
+     多个返回（nodelist或HtmlCollection：
+     querySelectorAll：NodeList
+     getElementsByTagName：HTMLCollection
+     getElementsByClassName：HTMLCollection
+     getElementsByName：NodeList
+    */
+    var btn = document.getElementById("input");
+    var input = document.getElementById("todod");
+    var ul = document.getElementById("todo");
+    btn.addEventListener("click", function () {
+      //  增加一个list
+      var li = document.createElement("div");
+      li.innerHTML = input.value;
+      li.value = input.value;
+      ul.appendChild(li);
+      input.value = "";
+    });
+    ul.addEventListener("click", function (e) {
+      //  删除一个list
+      console.log(e.target);
+      console.log(e.currentTarget);
+      var li = e.target.value; //赋值是值拷贝，引用类型的赋值操作是通过地址传递
+      //  增加一个list
+      var newli = document.createElement("div"); //li的value只能传入数字
+      newli.innerHTML = li;
+      did.appendChild(newli);
+      e.target.remove();
+    });
+  </script>
+</html>

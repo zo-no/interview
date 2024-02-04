@@ -1,0 +1,66 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <input type="text" id="text" />
+</body>
+<script>
+    const datas = []
+    const text = document.getElementById('text')
+    let isReporting = false
+
+    function sleep (ms = 100) {
+        // 模拟函数执行需要花费的时间
+        let sleepSwitch = true
+        let s = Date.now()//获取当前时间
+        while (sleepSwitch) {
+            if (Date.now() - s > ms) {//如果当前时间减去开始时间大于等于传入的时间，结束循环
+                sleepSwitch = false
+            }
+        } 
+    }
+    function handleClick () {
+        datas.push({
+            date: Date.now()//获取当前时间
+        })
+        // 监听用户响应的函数，需要花费150ms
+        sleep(150)//模拟用户响应
+        handleDataReport()//数据上报
+    }
+
+    // =========================  不使用requestIdleCallback  ==============================
+
+    function handleDataReport () {
+        if (isReporting) {
+            return
+        }
+        isReporting = true
+        report()//数据上报
+    }
+
+    function report (deadline) {
+        isReporting = false
+        while (datas.length > 0) {
+            get(datas.pop())//获取数据并上报
+        }
+        if (datas.length) {
+            handleDataReport()//如果数据还有，继续上报
+        }
+    }
+
+    // =========================  不使用requestIdleCallback结束  ==============================
+
+    function get(data) {
+        // 数据上报的函数，需要话费20ms
+        sleep(20)//模拟数据上报
+        console.log(`~~~ 数据上报 ~~~: ${data.date}`)
+    }
+
+    text.oninput = handleClick//监听input输入事件
+</script>
+</html>
