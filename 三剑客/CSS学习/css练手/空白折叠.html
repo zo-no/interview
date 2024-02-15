@@ -6,22 +6,31 @@
     <title>Document</title>
   </head>
   <style>
-    ul {
-      text-align: center;
-      display: flex;
-      justify-content: center;
-      background-color: red;
+    h1 {
+      &::before {
+        content: attr(name1);
+      }
+      &::after {
+        content: attr(data-name);
+      }
     }
-    li {
+    div {
+      margin-bottom: 10px;
+    }
+    .mar {
       display: inline-block;
-      margin-left: -5px;
+      margin-top: -10px;
+
+      height: 0;
     }
   </style>
   <body>
     <ul>
-      <li></li>
-      <li></li>
-      <li></li>
+      <h1 name1="Hello1" data-name=" JowayYoung"></h1>
     </ul>
+    <div>margin练习</div>
+    <span class="mar">123</span>
+    <span class="mar">123</span>
+    <span class="mar">123</span>
   </body>
 </html>
