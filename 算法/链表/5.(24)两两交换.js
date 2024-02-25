@@ -1,3 +1,5 @@
+// 导入链表
+import { LinkedList, Node } from "./定义链表";
 class Node {
   constructor(data) {
     this.data = data;
@@ -42,4 +44,18 @@ linkedList.addNode(4);
 // 显示链表中的节点
 linkedList.display();
 
-export default linkedList;
+var swapPairs = function (head) {
+  let cur = head;
+
+  //一次循环变换一次
+  while (cur) {
+    const next = cur.next;
+    cur.next = next.next;
+    next.next = cur;
+    cur = cur.next; //转换到下下个
+  }
+  return head;
+};
+
+swapPairs(linkedList.head);
+linkedList.display();
