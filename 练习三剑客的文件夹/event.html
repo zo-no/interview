@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>e.target练习</title>
+  </head>
+  <body>
+    <!-- <div id="bub"> -->
+    <div id="bub1">
+      1
+      <div id="bub2">
+        2
+        <div id="bub3">
+          3
+          <button>123456789</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      const event = document.getElementById("bub1");
+      const event1 = document.getElementById("bub2");
+      const event2 = document.getElementById("bub3");
+      event.addEventListener("click", (e) => {
+        console.log(e.currentTarget);
+        // console.log(e.target);
+        e.currentTarget.style.backgroundColor = "red";
+        let a = e.currentTarget; //由于currentTarget执行后会被删除，所以保存一个
+        setTimeout(() => {
+          a.style.backgroundColor = "blue";
+        }, 300);
+      });
+      event1.addEventListener("click", (e) => {
+        console.log(e.currentTarget);
+        // console.log(e.target);
+        let a = e.currentTarget; //由于currentTarget执行后会被删除，所以保存一个
+        setTimeout(() => {
+          a.style.backgroundColor = "blue";
+        }, 200);
+        e.currentTarget.style.backgroundColor = "red";
+      });
+      event2.addEventListener("click", (e) => {
+        console.log(e.currentTarget);
+        // console.log(e.target);
+        e.currentTarget.style.backgroundColor = "red";
+        let a = e.currentTarget; //由于currentTarget执行后会被删除，所以保存一个
+        setTimeout(() => {
+          a.style.backgroundColor = "blue";
+        }, 100);
+        //e.stopPropagation();
+      });
+    </script>
+    <style>
+      div {
+        margin: 10px;
+        color: aqua;
+        background-color: brown;
+        transition: background-color ease 1s;
+        /* transition对js修改style也有影响，看样子是浏览器 */
+      }
+    </style>
+  </body>
+</html>

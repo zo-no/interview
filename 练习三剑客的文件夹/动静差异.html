@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <ul>
+      <li id="example"></li>
+      <li class="example"></li>
+      <li class="example"></li>
+    </ul>
+  </body>
+  <script>
+    // 使用querySelectorAll获取NodeList和getElementsByClassName获取HTMLCollection
+    const nodeList = document.querySelectorAll("li");
+    const htmlCollection = document.getElementsByClassName("example");
+    const ql = document.getElementById("example");
+    ql.addEventListener("click", function (event) {
+      console.log("点击事件触发了");
+    });
+    // 访问节点数量
+    console.log("NodeList length:", nodeList);
+    console.log("HTMLCollection length:", htmlCollection);
+    // 动态添加元素
+    const ul = document.querySelector("ul");
+    const li = document.createElement("li");
+    li.textContent = "New Element";
+    li.className = "example";
+    ul.appendChild(li);
+
+    // 验证差异
+    console.log("Updated NodeList length:", nodeList.length); // 不会更新
+    console.log("Updated HTMLCollection length:", htmlCollection.length); // 实时更新
+  </script>
+</html>

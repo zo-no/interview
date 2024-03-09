@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input type="text" id="text" />
+  </body>
+  <script>
+    const datas = [];
+    const text = document.getElementById("text");
+    let isReporting = false;
+
+    function sleep(ms = 100) {
+      let sleepSwitch = true;
+      let s = Date.now();
+      while (sleepSwitch) {
+        if (Date.now() - s > ms) {
+          sleepSwitch = false;
+        }
+      }
+    }
+    function handleClick() {
+      datas.push({
+        date: Date.now(),
+      });
+      // 监听用户响应的函数，需要花费150ms
+      sleep(150);
+      handleDataReport();
+    }
+
+    // =========================  使用requestIdleCallback  ==============================
+
+    function handleDataReport() {
+      if (isReporting) {
+        return;
+      }
+      isReporting = true;
+      requestIdleCallback(report); //数据上报,使用requestIdleCallback
+    }
+
+    function report(deadline) {
+      isReporting = false;
+      while (deadline.timeRemaining() > 0 && datas.length > 0) {
+        get(datas.pop());
+      }
+      if (datas.length) {
+        handleDataReport();
+      }
+    }
+
+    // =========================  使用requestIdleCallback结束  ==============================
+
+    function get(data) {
+      // 数据上报的函数，需要话费20ms
+      sleep(20);
+      console.log(`~~~ 数据上报 ~~~: ${data.date}`);
+    }
+
+    text.oninput = handleClick;
+  </script>
+</html>
