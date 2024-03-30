@@ -4,7 +4,7 @@
  * @Description
  * */
 //1
-const newObj1 = object.assign({}, obj1, obj2);
+const newObj1 = Object.assign({}, obj1, obj2);
 //2
 const newObj2 = { ...obj1, ...obj2 };
 //3

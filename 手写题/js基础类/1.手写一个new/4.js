@@ -1,5 +1,5 @@
-//juejin.cn/post/6844903956859060231?searchId=20240320120823581B901448AD0E169F01
-https: function myNew(func, ...arg) {
+// juejin.cn/post/6844903956859060231?searchId=20240320120823581B901448AD0E169F01
+function myNew(func, ...arg) {
   //判断是否为对象
   if (typeof func !== "function") {
     return new TypeError("not a function");

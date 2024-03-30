@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Title</title>
+    <style>
+      #ss {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+      }
+      #sss {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+      }
+      #ssss {
+        width: 100px;
+        height: 100px;
+        border-radius: 50px;
+      }
+      .s {
+        width: 400px;
+        height: 140px;
+        border: 1px solid #666;
+        border-radius: 20px;
+        background: #f7f7f7;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="s">
+      <div id="ss"></div>
+      <div id="sss"></div>
+      <div id="ssss"></div>
+    </div>
+  </body>
+  <script>
+    window.onload = () => {
+      let bg1 = document.getElementById("ss");
+      let bg2 = document.getElementById("sss");
+      let bg3 = document.getElementById("ssss");
+      let setColor = (color, duration, num) => {
+        return new Promise((res, rej) => {
+          colors(num, color);
+          setTimeout(res, duration);
+        });
+      };
+      let colors = (num, color) => {
+        if (num === 1) {
+          bg1.style.background = color;
+          bg2.style.background = "#E2DCDC";
+          bg3.style.background = "#E2DCDC";
+        }
+        if (num === 2) {
+          bg2.style.background = color;
+          bg1.style.background = "#E2DCDC";
+          bg3.style.background = "#E2DCDC";
+        }
+        if (num === 3) {
+          bg3.style.background = color;
+          bg2.style.background = "#E2DCDC";
+          bg1.style.background = "#E2DCDC";
+        }
+      };
+      async function sett() {
+        await setColor("green", 6000, 1);
+        await setColor("yellow", 2000, 2);
+        await setColor("red", 4000, 3);
+        await sett();
+      }
+      sett();
+    };
+  </script>
+</html>
