@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>图片懒加载</title>
+  </head>
+  <body>
+    <div></div>
+  </body>
+  <style>
+    div {
+      display: flex;
+      justify-content: center;
+      flex-direction: column;
+    }
+    .img {
+      width: 50%;
+      height: 50%;
+    }
+  </style>
+  <script>
+    // https://segmentfault.com/a/1190000041606447?u_atoken=ebe68ae5-2b52-4cc7-be1a-b569d34300bc&u_asig=2760775e17192323264485933e6319&u_aref=0PfoPkvvVGc%2FPlnCo4xOwEB37l8%3D
+    const loadingSrc = "https://c.tenor.com/j-sGh5ZtdaEAAAAi/hongfei-fei.gif";
+    const srcs = [
+      "https://gejiba.com/view.php/b56f570ab6b64f5e1bc280d2c6fdfddf.png",
+      "https://gejiba.com/view.php/3253399884ad13f396bbe1cffbffeab9.png",
+      "https://gejiba.com/view.php/04297163703e44899109c8733123cd6b.png",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/7fec9559be60425a17e75bddcb2debb0.png",
+      "https://gejiba.com/view.php/b56f570ab6b64f5e1bc280d2c6fdfddf.png",
+      "https://gejiba.com/view.php/3253399884ad13f396bbe1cffbffeab9.png",
+      "https://gejiba.com/view.php/04297163703e44899109c8733123cd6b.png",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/7fec9559be60425a17e75bddcb2debb0.png",
+      "https://gejiba.com/view.php/b56f570ab6b64f5e1bc280d2c6fdfddf.png",
+      "https://gejiba.com/view.php/3253399884ad13f396bbe1cffbffeab9.png",
+      "https://gejiba.com/view.php/04297163703e44899109c8733123cd6b.png",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/f5f340222d16a2bb13bbcfce1c7e7965.jpeg",
+      "https://gejiba.com/view.php/7fec9559be60425a17e75bddcb2debb0.png",
+    ];
+
+    for (let src of srcs) {
+      let imgNode = document.createElement("img");
+      document.body.appendChild(imgNode);
+      imgNode.src = loadingSrc;
+      imgNode.className = "img";
+      imgNode.setAttribute("data-src", src);
+    }
+
+    let imgList = [...document.querySelectorAll("img")];
+    let length = imgList.length;
+    const imgLazyLoad = (function () {
+      let count = 0;
+      return function () {
+        let deleteIndexList = [];
+        imgList.forEach((img, index) => {
+          let rect = img.getBoundingClientRect();
+          if (rect.top < window.innerHeight) {
+            console.log(`加载第${index}张图片`);
+            img.src = img.dataset.src;
+            deleteIndexList.push(index);
+            count++;
+          }
+          // 说明图片已经全部加载完成了，移除监听事件
+          if (count === length) {
+            document.removeEventListener("scroll", imgLazyLoad);
+          }
+        });
+        // 剔除已经完成加载的图片的地址
+        imgList = imgList.filter(
+          (img, index) => !deleteIndexList.includes(index)
+        );
+      };
+    })();
+    // 监听鼠标滚动事件
+    document.addEventListener("scroll", imgLazyLoad);
+  </script>
+</html>
